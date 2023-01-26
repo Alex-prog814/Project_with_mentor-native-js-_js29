@@ -22,5 +22,30 @@
       "id": 3
     }
   ],
-  "products": []
+  "products": [
+    {
+      "title": "Product 1",
+      "price": "1234",
+      "desc": "hello",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
+      "category": "chaika",
+      "id": 1
+    },
+    {
+      "title": "Product 2",
+      "price": "456",
+      "desc": "hello 2",
+      "image": "https://www.istockphoto.com/resources/images/PhotoFTLP/P4-JAN-iStock-1432854572.jpg",
+      "category": "electronics",
+      "id": 2
+    },
+    {
+      "title": "Product 3",
+      "price": "890",
+      "desc": "Hello 3",
+      "image": "https://thumbs.dreamstime.com/b/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg",
+      "category": "most",
+      "id": 3
+    }
+  ]
 }
