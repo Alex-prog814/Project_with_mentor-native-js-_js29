@@ -32,14 +32,6 @@
       "id": 1
     },
     {
-      "title": "Product 2",
-      "price": "456",
-      "desc": "hello 2",
-      "image": "https://www.istockphoto.com/resources/images/PhotoFTLP/P4-JAN-iStock-1432854572.jpg",
-      "category": "electronics",
-      "id": 2
-    },
-    {
       "title": "Product 3",
       "price": "890",
       "desc": "Hello 3",

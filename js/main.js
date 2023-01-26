@@ -263,5 +263,38 @@ async function render() {
         </div>
         `;
     });
+
+    if(products.length === 0) return;
+    addCategoryToDropdownMenu();
+    addDeleteEvent();
 };
 render();
+
+async function addCategoryToDropdownMenu() {
+    let res = await fetch(PRODUCTS_API);
+    let data = await res.json();
+    let categories = new Set(data.map(item => item.category));
+    let categoriesList = document.querySelector('.dropdown-menu');
+    categoriesList.innerHTML = '<li><a class="dropdown-item" href="#">all</a></li>';
+    categories.forEach(item => {
+        categoriesList.innerHTML += `
+        <li><a class="dropdown-item" href="#">${item}</a></li>
+        `;
+    });
+};
+
+// delete
+async function deleteProduct(e) {
+    let productId = e.target.id.split('-')[1];
+    
+    await fetch(`${PRODUCTS_API}/${productId}`, {
+        method: 'DELETE'
+    });
+
+    render();
+};
+
+function addDeleteEvent() {
+    let deleteProductBtn = document.querySelectorAll('.btn-delete');
+    deleteProductBtn.forEach(item => item.addEventListener('click', deleteProduct));
+};
