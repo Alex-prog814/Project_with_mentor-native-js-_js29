@@ -8,7 +8,6 @@ let registerUserBtn = document.querySelector('#registerUser-btn');
 let loginUserBtn = document.querySelector('#loginUser-btn');
 let logoutUserBtn = document.querySelector('#logoutUser-btn');
 let closeRegisterModalBtn = document.querySelector('.btn-close');
-// console.log(registerUserModalBtn, loginUserModalBtn, registerUserModalBlock, loginUserModalBlock, registerUserBtn, loginUserBtn,logoutUserBtn);
 
 registerUserModalBtn.addEventListener('click', () => {
     registerUserModalBlock.setAttribute('style', 'display: flex !important;');
@@ -239,14 +238,18 @@ let addProductBtn = document.querySelector('.add-product-btn');
 addProductBtn.addEventListener('click', createProduct);
 
 // read
-// http://localhost:8000/products?q=SomeTitle&category=SomeCategory&_page=10&_limit=3
-
-
+let currentPage = 1;
+let search = '';
+let category = '';
 
 async function render() {
     let productsList = document.querySelector('#products-list');
     productsList.innerHTML = '';
-    let res = await fetch(PRODUCTS_API);
+    let requestAPI = `${PRODUCTS_API}?q=${search}&category=${category}&_page=${currentPage}&_limit=2`;
+    if(!category) {
+        requestAPI = `${PRODUCTS_API}?q=${search}&_page=${currentPage}&_limit=2`;
+    };
+    let res = await fetch(requestAPI);
     let products = await res.json();
     products.forEach(item => {
         productsList.innerHTML += `
@@ -286,6 +289,7 @@ async function addCategoryToDropdownMenu() {
         <li><a class="dropdown-item" href="#">${item}</a></li>
         `;
     });
+    addClickEventOnDropdownItem();
 };
 
 // delete
@@ -372,3 +376,65 @@ async function saveChanges(e) {
 };
 
 saveChangesBtn.addEventListener('click', saveChanges);
+
+// filtering
+function filterOnCategory(e) {
+    let categoryText = e.target.innerText;
+    if(categoryText === 'all') {
+        category = '';
+    } else {
+        category = categoryText;
+    };
+    render();
+};
+
+function addClickEventOnDropdownItem() {
+    let categoryItems = document.querySelectorAll('.dropdown-item');
+    categoryItems.forEach(item => item.addEventListener('click', filterOnCategory));
+};
+
+// search
+let searchInp = document.querySelector('#search-inp');
+searchInp.addEventListener('input', () => {
+    search = searchInp.value;
+    currentPage = 1;
+    render();
+});
+
+// pagination
+let prevPageBtn = document.querySelector('#prev-page-btn');
+let nextPageBtn = document.querySelector('#next-page-btn');
+
+async function getPagesCount() {
+    let res = await fetch(`${PRODUCTS_API}`);
+    let products = await res.json();
+    let pagesCount = Math.ceil(products.length / 2);
+    return pagesCount;
+};
+
+async function checkPages() {
+    let maxPagesNum = await getPagesCount();
+    if(currentPage === 1) {
+        prevPageBtn.setAttribute('style', 'display: none;');
+        nextPageBtn.setAttribute('style', 'display: block;');
+    } else if(currentPage === maxPagesNum) {
+        prevPageBtn.setAttribute('style', 'display: block;');
+        nextPageBtn.setAttribute('style', 'display: none;');
+    } else {
+        prevPageBtn.setAttribute('style', 'display: block;');
+        nextPageBtn.setAttribute('style', 'display: block;');
+    };
+};
+checkPages();
+
+prevPageBtn.addEventListener('click', () => {
+    currentPage--;
+    checkPages();
+    render();
+});
+
+nextPageBtn.addEventListener('click', () => {
+    currentPage++;
+    checkPages();
+    render();
+});

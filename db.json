@@ -33,11 +33,11 @@
     },
     {
       "id": 3,
-      "title": "Product 3",
+      "title": "Peroduct 3",
       "price": "890999",
       "desc": "Hello 3",
       "image": "https://thumbs.dreamstime.com/b/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg",
-      "category": "most"
+      "category": "superMost"
     },
     {
       "title": "Product 4",
@@ -46,6 +46,22 @@
       "image": "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
       "category": "phones",
       "id": 4
+    },
+    {
+      "title": "Super Peroduct",
+      "price": "289258924",
+      "desc": "norm",
+      "image": "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "category": "most",
+      "id": 5
+    },
+    {
+      "title": "Product Mroduct",
+      "price": "4234",
+      "desc": "description mdescription",
+      "image": "https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg",
+      "category": "phones",
+      "id": 6
     }
   ]
 }
